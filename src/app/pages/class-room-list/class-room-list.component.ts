@@ -59,7 +59,7 @@ export class ClassRoomListComponent implements OnInit {
   };
 
   addClassRoom(){
-    if(!this.classRooms[0].id) return;
+    if(this.classRooms?.length &&!this.classRooms[0].id) return;
 
     this.classRooms.unshift({
       changeValues: true,

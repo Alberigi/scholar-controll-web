@@ -11,7 +11,6 @@
         <th scope="col">Responsável</th>
         <th scope="col">Telefone</th>
         <th scope="col">Endereço</th>
-        <th scope="col">Data</th>
         <th class="d-flex justify-content-around" scope="col">
           <span class="align-self-end">Ações</span>
           <button type="button" class="btn btn-link pb-0">
@@ -34,7 +33,6 @@
           <td>
             {{student.address}}
         </td>
-          <td>{{student.date}}</td>
           <td>
             <div class="d-flex justify-content-around">
               <img src="../../../assets/edit-icon.svg" (click)="setEditMode(i, student)">
@@ -57,9 +55,6 @@
           <td>
             <input class="form-control" type="text"  formControlName="address">
         </td>
-          <td>
-            <input class="form-control" type="text"  formControlName="date">
-          </td>
           <td class="align-content-center">
             <div class="d-flex justify-content-around">
               <img src="../../../assets/success-alert-icon.svg" (click)="save(i)">

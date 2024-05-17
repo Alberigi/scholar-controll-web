@@ -8,6 +8,5 @@ export interface IStudent {
   phone?: string;
   guardian?: string;
   address?: number;
-  date?: Date;
   changeValues?: boolean
 }

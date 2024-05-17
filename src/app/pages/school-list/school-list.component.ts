@@ -76,7 +76,6 @@ export class SchoolListComponent implements OnInit {
     try {
       const data = {...this.schoolsForm.value};
       let result = { ...this.schools[index]};
-
       if(this.schoolsForm.value.id) {
         result = await this.schoolService.update(this.schoolsForm.value.id, data);
       } else {

@@ -41,10 +41,11 @@ export class StudentListComponent implements OnInit {
     this.schoolId = this.route.snapshot.paramMap.get('schoolId') as string;
     this.studentForm = this.formBuilder.group({
       id: [null],
+      classRoomId: [this.classRoomId],
       name: ['', Validators.required],
       phone: ['', Validators.required],
-      date: ['', Validators.required],
-      guardian: ['', Validators.required]
+      guardian: ['', Validators.required],
+      address: ['', Validators.required]
     });
 
     this.getStudents();
@@ -53,9 +54,11 @@ export class StudentListComponent implements OnInit {
   async getStudents(): Promise<void> {
     try {
       const result = await this.studentService.get(this.schoolId, this.classRoomId, this.page, this.pageSize);
-      this.students = result.items;
+      this.students = result.items || [];
       this.totalPages =  result.total;
-      this.classRoomName = result.items[0]?.classRoom?.name as string;
+
+      // if()
+      // this.classRoomName = result.items[0]?.classRoom?.name as string;
 
     } catch (error) {
       window.alert('Erro ao buscar os alunos.');
@@ -63,7 +66,7 @@ export class StudentListComponent implements OnInit {
   }
 
   addStudent(){
-    if(!this.students[0].id) return;
+    if(this.students?.length && !this.students[0].id) return;
 
     this.students.unshift({
       changeValues: true,
@@ -101,7 +104,6 @@ export class StudentListComponent implements OnInit {
     this.studentForm.setValue({
       id: student.id,
       name: student.name,
-      date: student.date,
       address: student.address,
       phone: student.phone,
     });

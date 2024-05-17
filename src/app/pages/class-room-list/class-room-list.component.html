@@ -1,0 +1,87 @@
+
+  <form [formGroup]="classRoomForm">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">
+            Escola
+          </th>
+          <th scope="col">Nome</th>
+          <th scope="col">Turno</th>
+          <th scope="col">Serie</th>
+          <th scope="col">Ano Letivo</th>
+          <th scope="col">Limite de Alunos</th>
+          <th scope="col">Alunos</th>
+          <th class="d-flex justify-content-around" scope="col">
+            <span class="align-self-end">Ações</span>
+            <button type="button" class="btn btn-link pb-0">
+              <img src="../../../assets/add-icon.svg" (click)="addClassRoom()">
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (classRoom of classRooms; track classRoom.id; let i = $index) {
+          <tr *ngIf="!classRoom?.changeValues">
+            <th scope="row">{{ schoolName }}</th>
+            <td>
+              {{classRoom.name}}
+            </td>
+            <td>{{classRoom.shift}}</td>
+            <td>
+                <span>{{classRoom.grade}}</span>
+            </td>
+            <td>{{classRoom.academicYear}}</td>
+            <td>{{classRoom.studentLimit}}</td>
+            <td>
+              <button type="button" class="btn btn-link" (click)="selectStudents(classRoom.id)">Alunos</button>
+            </td>
+            <td>
+              <div class="d-flex justify-content-around">
+                <img src="../../../assets/edit-icon.svg" (click)="setEditMode(i, classRoom)">
+                <img src="../../../assets/delete-button.svg">
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="classRoom?.changeValues">
+            <th scope="row">{{ schoolName }}</th>
+            <td>
+              <input class="form-control" type="text"  formControlName="name">
+            </td>
+            <td>
+              <input class="form-control" type="text"  formControlName="shift">
+            </td>
+            <td>
+                <input class="form-control" type="text"  formControlName="grade">
+            </td>
+            <td>
+              <input class="form-control" type="text"  formControlName="academicYear">
+            </td>
+            <td>
+              <input class="form-control" type="text"  formControlName="studentLimit">
+            </td>
+            <td>
+              <button type="button" class="btn btn-link" disabled>Alunos</button>
+            </td>
+            <td class="align-content-around">
+              <div class="d-flex justify-content-around">
+                <img src="../../../assets/success-alert-icon.svg" (click)="saveClass(i)">
+                <img src="../../../assets/close-icon.svg" (click)="resetChangeValues(i)">
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" style="text-align: center">No class room found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </form>
+
+
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="totalPages" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshClassRooms()">
+    </ngb-pagination>
+  </div>
